@@ -1,0 +1,515 @@
+mixin radioInput(id, name, value, compareValue, checkedValue)
+  -
+    let checked = checkedValue === compareValue ? true : false
+
+  input.form-check-input(
+    type='radio'
+    id= id
+    name= name
+    value= value
+    checked= checked
+  )
+
+
+form.form-horizontal(
+  id='site_config'
+  name='site_config'
+  action='/handy/site_config'
+  method='post'
+  role='form'
+)
+  include ../components/csrf.pug
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Site information
+          h5.card-subtitle.mb-2.text-muted Basic site details
+
+          .form-group.mt-2
+            label.control-label.col-2(for='siteName') Site name
+            .col-8
+              input.form-control#siteName(
+                type='text'
+                name='siteName'
+                placeholder='Public name of your website'
+                value= siteName
+                required
+              )            
+
+          .form-group.mt-2
+            label.control-label.col-2(for='siteEmail') Site Email
+            .col-8
+              input.form-control#siteEmail(
+                type='email'
+                name='siteEmail'
+                placeholder='e.g. admin@example.com'
+                value= siteEmail
+                required
+              )
+              span.form-text.text-muted Automated emails, such as registration information, will be sent from this address.  It is usually a good idea to use an address ending in your site's domain to prevent your emails from being flagged as spam.
+
+          .form-group.mt-2
+            label.control-label.col-2(for='siteSupportEmail') Support Email
+            .col-8
+              input.form-control#siteSupportEmail(
+                type='email'
+                name='siteSupportEmail'
+                placeholder='e.g. support@example.com'
+                value= siteSupportEmail
+              )
+              span.form-text.text-muted Support emails are sent to this address
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Cron
+
+          .form-row
+            label.control-label.col-1(for='cronUrl') Cron url
+            .col-7
+              input.form-control#cronUrl(
+                type='url'
+                name='cronUrl'
+                value= siteURL + '/handy/cron/' + cronKey
+                readonly
+                required
+              )
+
+            .col
+              a.btn.btn-info(
+                href= siteURL + '/handy/cron/' + cronKey
+                target='_blank'
+                role='button'
+              )
+                | Run cron
+
+            .col
+              a.btn.btn-warning(
+                href= siteURL + '/handy/cron/' + cronKey + '/reset'
+                target='_blank'
+                role='button'
+              )
+                | Reset cron
+
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+
+          -
+            let checked_mail = false;
+            let checked_mandrill = false;
+            let checked_gmail = false;
+            switch(pageInfo.config.emailAgent){
+              case 'mail_server':
+                checked_mail = true;
+                break;
+              case 'mandrill':
+                checked_mandrill = true;
+                break;
+              case 'gmail':
+                checked_gmail = true;
+                break;
+            }
+
+          h4.card-title Email configuration
+          .row
+            .col-3
+              .list-group#list-tab(role='tablist')
+                a.list-group-item.list-group-item-light.text-body.action.email_agent#list_mail_server_list(
+                  data-toggle='list'
+                  href='#mail_server_list'
+                  role='tab'
+                  aria-controls='mail server'
+                )
+
+                  .form-check
+                    input.form-check-input(
+                      type='radio'
+                      name='emailAgent'
+                      id='emailAgent_mail-server'
+                      value='mail_server'
+                      checked= checked_mail
+                    )
+                    label.form-check-label(for='emailAgent_mail-server')
+                      | Mail server
+
+
+                a.list-group-item.list-group-item-light.text-body.action.email_agent#list_mandrill_list(
+                  data-toggle='list'
+                  href='#mandrill_list'
+                  role='tab'
+                  aria-controls='mandrill'
+                )
+                  .form-check
+                    input.form-check-input(
+                      type='radio'
+                      name='emailAgent'
+                      id='emailAgent_mandrill'
+                      value='mandrill'
+                      checked= checked_mandrill
+                    )
+                    label.form-check-label(for='emailAgent_mandrill')
+                      | Mandrill
+
+
+                a.list-group-item.list-group-item-light.text-body.action.email_agent#list_gmail_list(
+                  data-toggle='list'
+                  href='#gmail_list'
+                  role='tab'
+                  aria-controls='gmail'
+                )
+
+                  .form-check
+                    input.form-check-input(
+                      type='radio'
+                      name='emailAgent'
+                      id='emailAgent_gmail'
+                      value='gmail'
+                      checked= checked_gmail
+                    )
+                    label.form-check-label(for='emailAgent_gmail')
+                      | Gmail
+
+
+            .col-8
+              .tab-content#nav-tabContent
+                .tab-pane.fade#mail_server_list(
+                  class= checked_mail ? 'show active' : ''
+                  role='tabpanel'
+                  aria-labeledby='list_mail_server_list'
+                )
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailUsername'
+                    )
+                      | Site email server username
+
+                    input.form-control#siteEmailUsername(
+                      type='text'
+                      name='siteEmailUsername'
+                      placeholder='email server username'
+                      value= pageInfo.config.siteEmailUsername
+                    )
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailPassword'
+                    )
+                      | Site email server password
+
+                    input.form-control#siteEmailPassword(
+                      type='password'
+                      name='siteEmailPassword'
+                      placeholder='email server password'
+                      value= pageInfo.config.siteEmailPassword
+                    )
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailHost'
+                    )
+                      | Mail server host
+
+                    input.form-control#siteEmailHost(
+                      type='text'
+                      name='siteEmailHost'
+                      placeholder='e.g. mail.example.com'
+                      value= pageInfo.config.siteEmailHost
+                    )
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailPort'
+                    )
+                      | Mail server port
+
+                    input.form-control#siteEmailPort(
+                      type='text'
+                      name='siteEmailPort'
+                      placeholder='e.g. 25, 587, 465'
+                      value= pageInfo.config.siteEmailPort
+                    )
+                    span.form-text.text-muted Leave blank to use defaults: 25 (SMTP non-encrypted), 465 (SMTP SSL), 587 (SMTP TLS)
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailTimeout'
+                    )
+                      | Mail server timeout
+
+                    input.form-control#siteEmailTimeout(
+                      type='number'
+                      min=0
+                      step=1
+                      name='siteEmailTimeout'
+                      placeholder='max time to wait for SMTP responses in ms'
+                      value= pageInfo.config.siteEmailTimeout
+                    )
+                    span.form-text.text-muted Leave blank to use defaults: 6,000 ms
+
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailSSL'
+                    )
+                      | Use SSL
+
+                    .form-check
+                      +radioInput('siteEmailSSL_true', 'siteEmailSSL', 'true', true,  pageInfo.config.siteEmailSSL)
+
+                      label.form-check-label(for='siteEmailSSL_true') Yes
+
+                    .form-check
+                      +radioInput('siteEmailSSL_false', 'siteEmailSSL', 'false', false, pageInfo.config.siteEmailSSL)
+
+                      label.form-check-label(for='siteEmailSSL_false') No
+                          
+
+                  .form-group
+                    label.control-label(
+                      for='siteEmailTLS'
+                    )
+                      | Use TLS
+
+                    .form-check
+                      +radioInput('siteEmailTLS_true', 'siteEmailTLS', 'true', true, pageInfo.config.siteEmailTLS)
+                      
+                      label.form-check-label(for='siteEmailTLS_true') Yes
+
+                    .form-check
+                      +radioInput('siteEmailTLS_false', 'siteEmailTLS', 'false', false, pageInfo.config.siteEmailTLS)
+
+                      label.form-check-label(for='siteEmailTLS_false') No
+
+
+                .tab-pane.fade#mandrill_list(
+                  class= checked_mandrill ? 'show active' : ''
+                  role='tabpanel'
+                  aria-labeledby='list_mandrill_list'
+                )
+                  .form-group
+                    label.control-label(
+                      for='mandrillApiKey'
+                    )
+                      | Mandrill API key
+
+                    input.form-control#mandrillApiKey(
+                      type='text'
+                      name='mandrillApiKey'
+                      placeholder='unique Mandrill API Key'
+                      value= pageInfo.config.mandrillApiKey
+                    )
+
+
+                .tab-pane.fade#gmail_list(
+                  class= checked_gmail ? 'show active' : ''
+                  role='tabpanel'
+                  aria-labeledby='list_gmail_list'
+                )
+                  .form-group
+                    label.control-label(
+                      for='googleClientId'
+                    )
+                      | Google client ID
+
+
+                    input.form-control#googleClientId(
+                      type='text'
+                      name='googleClientId'
+                      placeholder='unique Google Client ID'
+                      value= pageInfo.config.googleClientId
+                    )
+
+                  .form-group
+                    label.control-label(
+                      for='googleClientSecret'
+                    )
+                      | Google client Secret
+
+                    input.form-control#googleClientSecret(
+                      type='text'
+                      name='googleClientSecret'
+                      placeholder='unique Google Client Secret'
+                      value= pageInfo.config.googleClientSecret
+                    )
+
+                  .form-group
+                    label.control-label(
+                      for='googleAuthRedirectURIPath'
+                    )
+                      | Google auth redirect URI path
+
+                    .input-group
+                      .input-group-prepend
+                        .input-group-text= siteURL + '/handy/'
+                      input.form-control#googleAuthRedirectURIPath(
+                        type='text'
+                        name='googleAuthRedirectURIPath'
+                        placeholder='e.g. google_auth_redirect'
+                        value= pageInfo.config.googleAuthRedirectURIPath
+                      )
+
+                  .form-group
+                    label.control-label(
+                      for='googleAuthScopes'
+                    )
+                      | Google auth scopes
+
+                    input.form-control#googleAuthScopes(
+                      type='text'
+                      name='googleAuthScopes'
+                      placeholder='e.g. readonly,send,insert'
+                      value= pageInfo.config.googleAuthScopes
+                    )
+                    span.form-text.text-muted Select from the following values: "readonly", "compose", "send", "insert", "labels", "modify", "metadata", "settings_basic", "settings_advanced", "full".
+                      br
+                      br
+                      | enter as a comma separated list without spaces
+                      | (see https://developers.google.com/gmail/api/auth/scopes for details)
+
+                  .form-group
+                    label.control-label(
+                      for='gmailSendBuffer'
+                    )
+                      | Gmail send buffer
+
+
+                    input.form-control#gmailSendBuffer(
+                      type='number'
+                      min=0
+                      step=1
+                      name='gmailSendBuffer'
+                      placeholder='e.g. 60'
+                      value= pageInfo.config.gmailSendBuffer
+                    )
+                    span.form-text.text-muted time in seconds to wait between gmail requests
+
+                  .form-group
+                    label.control-label(
+                      for='gmailConnectStatus'
+                    )
+                      | Gmail account connection status
+
+
+                    input.form-control#gmailConnectionStatus(
+                      type='text'
+                      value= connectedStatus
+                      readonly
+                    )
+
+                  .form-group
+                    a.btn.btn-warning(
+                      href= '/handy/google_auth'
+                    )
+                      | Connect site google account
+
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Logging and site analytics
+
+          .form-group
+            label.control-label(for='logDestination') Log destination
+
+            input.form-control#logDestination(
+              type='text'
+              name='logDestination'
+              placeholder='Path to log file folder'
+              value= logDestination
+            )
+            span.form-text.text-muted Leave blank to use default log folder '/path/to/app/folder/logs'
+
+          .form-group
+            label.control-label(for='reportDestination') Report destination
+
+            input.form-control#reportDestination(
+              type='email'
+              name='reportDestination'
+              placeholder='e.g. admin@example.com'
+              value= reportDestination
+            )
+            span.form-text.text-muted Periodic reports will be sent to this email address 
+
+          .form-group
+            label.control-label(for='reportFreq') Report frequency
+
+            .input-group
+              input.form-control#reportFreq(
+                type='number'
+                min=0
+                step=1
+                name='reportFreq'
+                placeholder='reporting frequency in days'
+                value= reportFreq
+              )
+              .input-group-append
+                .input-group-text
+                  | days
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Database backup settings
+
+          .form-group
+            label.control-label(for='backupFreq') Backup frequency
+            .input-group
+              input.form-control#backupFreq(
+                type='number'
+                name='backupFreq'
+                placeholder=24
+                value= backupFreq
+                min=0
+                max=999
+                step=1
+              )
+              .input-group-append 
+                .input-group-text
+                  | hours
+            span.form-text.text-muted backup frequency in hours
+
+          .form-group
+            label.control-label(for='backupDestinationType') Destination type
+            select.form-control#backupDestinationType(
+              name='backupDestinationType'
+            )
+              - const options = ['email', 'file']
+              
+              each option in options
+                - const selected = option === backupDestinationType ? true : false
+
+                option(
+                  value=option
+                  selected=selected
+                )
+                  | #{option}
+
+            span.form-text.text-muted backup destination type
+
+          .form-group
+            label.control-label(for='backupDestination') Backup file destination
+
+            input.form-control#backupDestination(
+              type= 'text'
+              name= 'backupDestination'
+              value= backupDestination
+              placeholder= 'email address or path/to/backup/file'
+            )
+            span.form-text.text-muted destination where backup file is sent or saved.  if setting a path, ensure the app has permissions to access the folder.  leave blank to disable backups
+
+
+  .form-group
+    .col-offset-1.col-8
+      button.btn.btn-primary(
+        type='submit'
+      )
+        | Update configuration

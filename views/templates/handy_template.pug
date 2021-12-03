@@ -1,0 +1,43 @@
+doctype html
+html(
+  lang='en'
+)
+
+  - 
+    const siteName = pageInfo.config.siteName || 'New Handyjs Site'
+    const title = pageInfo.config.title || siteName
+    const siteURL = pageInfo.config.siteURL
+    const siteEmail = pageInfo.config.siteEmail || ''
+    const siteSupportEmail = pageInfo.config.siteSupportEmail || ''
+    const cronKey = pageInfo.config.cronKey || ''
+    const logDestination = pageInfo.config.logDestination || ''
+    const reportDestination = pageInfo.config.reportDestination || ''
+    const reportFreq = pageInfo.config.reportFreq || 0
+    const backupFreq = pageInfo.config.backupFreq || 0
+    const backupDestination = pageInfo.config.backupDestination || ''
+    const backupDestinationType = pageInfo.config.backupDestinationType || 'email'
+
+
+  head
+    block head
+      include ../components/head.pug
+
+  body
+    block body
+
+      block header
+        include ../components/navbar.pug
+
+      block fixed_navbar_spacer
+        .fixed_navbar_spacer
+
+      block messages
+        include ../components/messages.pug
+
+      block content
+
+      block footer
+        include ../components/footer.pug
+
+      block bottomscripts
+

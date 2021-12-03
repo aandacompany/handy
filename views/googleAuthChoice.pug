@@ -1,0 +1,25 @@
+extends ./templates/handy_template.pug
+
+block content
+  -
+    const disabledClass = pageInfo.oauthRedirectUrl ? '' : 'disabled';
+    const tooltip = disabledClass === 'disabled' ? 'Update Google client ID and Secret before connecting your Gmail account' : '';
+    const isAdmin = pageInfo.isAdmin; // true if user is an admin
+
+  .container-fluid.spacer
+    .row
+      .offset-1.col-10
+        h1 Which account do you want to connect the Google account with?
+      
+    .row
+      .col-4
+        a.btn.btn-default(
+          href='/handy/google_auth_choice'
+        )
+          | Connect your user account to the Google account
+
+      .col-4.offset-1
+        a.btn.btn-default(
+          href='/handy/google_auth_choice?site=true'
+        )
+          | Connect the site email account to the Google account

@@ -1,0 +1,117 @@
+form(
+  id='site_install'
+  name='site_install'
+  action='/handy/site_install'
+  method='post'
+  role='form'
+)
+  include ../components/csrf.pug
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Site information
+          h5.card-subtitle.mb-2.text-muted Basic site details
+          .form-group.mt-2.row
+            label.col-form-label.col-2(for='siteName') Site name
+            .col-8
+              input.form-control#siteName(
+                type='text'
+                name='siteName'
+                placeholder='Public name of your website'
+                required
+              )
+          
+          .form-group.row
+            label.col-form-label.col-2(for='siteEmail') Site email
+            .col-8
+              input.form-control#siteEmail(
+                type='email'
+                name='siteEmail'
+                placeholder='e.g. admin@mysite.com'
+                required
+              )
+              span.form-text.text-muted Automated emails, such as registration information, will be sent from this address.  It is usually a good idea to use an address ending in your site's domain to prevent your emails from being flagged as spam.
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Database configuration
+          h5.card-subtitle.mb-2.text-muted Database access information
+          .form-group.mt-2.row
+            label.col-form-label.col-2(for='dbName') Database name
+            .col-8
+              input.form-control#dbName(
+                type='text'
+                name='dbName'
+                placeholder='Name of your database'
+                required
+              )
+          .form-group.row
+            label.col-form-label.col-2(for='dbUser') Database user
+            .col-8
+              input.form-control#dbUser(
+                type='text'
+                name='dbUser'
+                placeholder='Username on database'
+                required
+              )
+          .form-group.row
+            label.col-form-label.col-2(for='dbPassword') Database password
+            .col-8
+              input.form-control#dbPassword(
+                type='password'
+                name='dbPassword'
+                placeholder='Database password'
+                required
+              )                
+
+  .row
+    .col-12
+      .card.bg-light.mb-2
+        .card-body
+          h4.card-title Site administrator
+          h5.card-subtitle.mb-2.text-muted Site admin account setup
+          .form-group.mt-2.row
+            label.col-form-label.col-2(for='adminName') Admin username
+            .col-8
+              input.form-control#adminName(
+                type='text'
+                name='adminName'
+                placeholder='Site administrator username'
+                required
+              )
+          .form-group.row
+            label.col-form-label.col-2(for='adminEmail') Admin email
+            .col-8
+              input.form-control#adminEmail(
+                type='email'
+                name='adminEmail'
+                placeholder='e.g. name@gmail.com'
+                required
+              )
+          .form-group.row
+            label.col-form-label.col-2(for='adminPassword') Admin password
+            .col-8
+              input.form-control#adminPassword(
+                type='password'
+                name='adminPassword'
+                placeholder='Password'
+                required
+              )
+          .form-group.row
+            label.col-form-label.col-2(for='adminPasswordConf') Confirm password
+            .col-8
+              input.form-control#adminPasswordConf(
+                type='password'
+                name='adminPasswordConf'
+                placeholder='Type in password again'
+                required
+              )
+
+  .row
+    .offset-2.col-8
+      .form-group
+        button.btn.btn-primary(type='submit') Start installation

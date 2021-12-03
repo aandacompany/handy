@@ -1,0 +1,33 @@
+extends ./templates/handy_template.pug
+
+block content
+  -
+    const disabledClass = pageInfo.oauthRedirectUrl ? '' : 'disabled';
+    const tooltip = disabledClass === 'disabled' ? 'Update Google client ID and Secret before connecting your Gmail account' : '';
+
+  .container-fluid.spacer
+    .row
+      .offset-1.col-10
+        h1 Connect Google Account
+      
+    .row
+      .col-6.offset-3
+        if disabledClass
+          .tooltip-wrapper(
+            data-toggle='tooltip'
+            data-placement='right'
+            data-original-title=tooltip
+            title=''
+          )
+            a.btn.btn-default(
+              class=disabledClass
+              href= pageInfo.oauthRedirectUrl
+            )
+              | Authorize access to Google account
+
+        else
+          .row
+            a.btn.btn-default(
+              href= pageInfo.oauthRedirectUrl
+            )
+              | Authorize access to Google account

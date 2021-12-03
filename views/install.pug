@@ -1,0 +1,16 @@
+extends ./templates/handy_template.pug
+
+block header
+
+block content
+  .container-fluid.spacer
+    .row
+      .offset-1.col-10
+        h1 Welcome to your new Handyjs site
+        p.lead Please provide the information required to fully install Handyjs
+
+    .row
+      .offset-1.col-10
+        include ./forms/handy_install.pug
+
+block footer

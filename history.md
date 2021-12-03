@@ -1,73 +1,78 @@
-3.0.4
+# History
+
+## v 6.2.14
+- modified CDN settings to set cache type and store type
+
+## v 6.2.13
+- upgraded build components
+- modified CDN settings to allow setting expiry age
+
+## v 6.2.12
+- modified system/createDatabaseTables to limit the size of indexes when the size is too large
+
+## v 6.2.11
+- added system.sendStream to enable sending data responses in streams
+
+## v 6.2.10
+- fixed bug in system.chooseIdentifier which selected the wrong identifier when the value was null
+
+## v 6.2.9
+- fixed bug in getting error message when system.sendEmail fails 
+
+## v 6.2.8
+- fixed bug in system.chooseIdentifier which prevented loading objects by an identifier with a falsy value
+
+## v 6.2.7
+- log route returns error stack trace instead of JSON stringifying error (which is useless)
+
+## v 6.2.6
+- set system.getQueueItems to default to only returning unlocked taskqueue items
+
+## v 6.2.4
+- modified system.getQueueItems to be able to return only unlocked taskqueue items
+
+## v 6.2.3
+- upgraded csurf to support SameSite None and secure mode
+
+## v 6.2.2
+- modified session configuration to set cookies with SameSite None and secure mode if required
+
+## v 6.2.1
+- upgraded expressjs dependencies
+
+## v 6.2.0
+- added ability to create and destroy temporary database connection pools
+
+## v 6.1.4
+- decreased maximum number of connections in pool to 50
+
+## v 6.1.3
+- increased maximum number of connections in pool to 100
+
+## v 6.1.2
+- add utility function to round to decimal places
+
+## v 6.1.1
+- fixed bug in CDN seting for various paths which crashed the thread when accessed
+- added CDN headers to various paths where they were missing
+
+## v 6.1.0
+- extended BaseObject to be able to find records based on provided identifiers
+
+## v 6.0.5
+- modified BaseObject constructor to enable dynamic modification of tableDefinition at runtime
+
+## v 6.0.4
+- bug fixes
+
+## v 6.0.3
+- added CDN caching control 
+
+## v 4.0.2 // 07/09/17
 ---
-Modified express parameters in order to support posting of content (> 1mb) in forms
+Redesigned as proper NPM module
 
-3.0.1 12/24/2015
+## v 4.0.0 // 05/08/17
 ---
-* minor bug fixes
-
-3.0.0 12/17/2015
-----
-* Fixed bug in routes/forms.js which expected req.params.id to always be a number (which is no longer the case as it is now often the path)
-* added support for TinyMCE editor on forms
-* added '/internalerror' path
-* modified function user.checkUserHasSpecificContentPermission to include the id type of the content so that it is possible to pass urls as well as numeric ids to the function
-* fixed bug where hamburger menu in the theme header (only visible on small viewports) does not expand to show items under it
-
-2.0.5 06/28/2015
----
-* increased table size for systemconfig
-* enabled support for TEXT, BLOB (and related data types) in content type definitions
-
-2.0.4 06/21/2015
----
-* minor bug fixes
-
-2.0.2  06/16/2015
----
-* fixed foreign key check error that sometimes came up during installation
-
-2.0.1  06/14/2015
----
-NOTE: version 2.0.1 is a breaking change from previous versions
-* Upgraded to io.js in anticipation of Node.js merge
-* Refactored bootstrap code
-* Made handy.js OS independent
-* Added organization accounts 
-
-1.0.1  10/20/2014
----
-* Fixed minor bugs
-
-
-0.9.3  10/17/2014
----
-* ensured each site had a unique session secret, cookie secret and 
-* the keys for each content cache are uniquely prefixed
-
-0.9.2  10/11/2014
----
-* modified default theme to enable responsiveness in IE8 and below
-
-
-0.9.1  10/10/2014
----
-* robots.txt is now a dynamic file served by nodejs and no longer a static file
-* logging for 404 pages now shows the original request 
-
-0.9.0  09/28/2014
----
-* introduces theme engine.
-NOTE: This is a breaking change for any sites built on earlier versions
-
-0.8.1  09/09/2014
----
-* numerous bug fixes
-
-0.8.0  09/01/2014
----
-* numerous bug fixes
-
-0.7.0  09/01/2014
----
-* beta release
+Full rewrite of Handyjs
+Rearchitected as node module

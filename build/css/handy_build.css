@@ -1,0 +1,34 @@
+/* spacer to account for fixed navbar */
+.fixed_navbar_spacer {
+  margin-top: 70px;
+}
+
+.spacer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.clear {
+  clear: both;
+}
+
+.underline {
+  border-bottom-color: #dcdcdc;
+  border-bottom-width: thin;
+  border-bottom-style: solid;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+/* stretch to fill screen height */
+.fill-screen-height{
+  min-height: calc(100vh - 224px - 51px);
+}
+
+
+/* utilities */
+.hidden {
+  display: none;
+}

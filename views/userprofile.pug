@@ -1,0 +1,181 @@
+extends templates/handy_template.pug
+
+block content
+  .container-fluid.fill-screen-height
+    .row
+      if pageInfo.config.displayProfile
+        form(
+          name='userProfile'
+          id= 'userProfile'
+          action='/handy/userprofile'
+          method='post'
+          role='form'
+        )
+          .offset-1.col-10
+            h1 User profile
+            
+            .well
+              include ./components/csrf.pug
+
+              .form-group.row
+                label.col-form-label.col-2(for='userId') User Id
+                .col-4
+                  input.form-control(
+                    type='number'
+                    id='userId'
+                    name='userId'
+                    value= pageInfo.profileUser.id
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='userEmail') Email address
+                .col-4
+                  input.form-control(
+                    type='email'
+                    id='userEmail'
+                    name='userEmail'
+                    value= pageInfo.profileUser.email
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='userName') Name
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='userName'
+                    name='userName'
+                    value= pageInfo.profileUser.name
+                  )
+                
+                  p#user-name-warning.hidden.text-danger User name cannot be blank or just spaces
+
+              .form-group.row
+                label.col-form-label.col-2(for='verified') Email verified
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='verified'
+                    name='verified'
+                    value= pageInfo.profileUser.verified ? 'verified' : 'not verified'
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='googleConnected') Gmail account connection status
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='gmailConnectedStatus'
+                    name='gmailConnectedStatus'
+                    value= pageInfo.profileUser.googleauthtoken.access_token ? 'connected' : 'not connected'
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='roles') Roles
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='roles'
+                    name='roles'
+                    value= pageInfo.profileUser.roles.join(', ')
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='lastLogin') Last login
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='lastLogin'
+                    name='lastLogin'
+                    value= pageInfo.profileUser.lastlogin.toUTCString()
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='createDate') Date account created
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='createDate'
+                    name='createDate'
+                    value= pageInfo.profileUser.createdate.toUTCString()
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='accountStatus') Account status
+                .col-4
+                  input.form-control(
+                    type='text'
+                    id='accountStatus'
+                    name='accountStatus'
+                    value= pageInfo.profileUser.deleted ? 'inactive' : 'active'
+                    readonly
+                  )
+
+              .form-group.row
+                label.col-form-label.col-2(for='password') New password
+                .col-4
+                  input.form-control(
+                    type='password'
+                    id='password'
+                    name='password'
+                    placeholder='enter new password'
+                  )
+                  small.form-text.text-muted Leave blank if not changing password
+                  p#password-warning.text-danger.hidden Password and password confirmation do not match.  Please make corrections to ensure they are the same
+
+
+              .form-group.row
+                label.col-form-label.col-2(for='passwordConfirmation') Confirm new password
+                .col-4
+                  input.form-control(
+                    type='password'
+                    id='passwordConfirmation'
+                    name='passwordConfirmation'
+                    placeholder='enter new password again'
+                  )
+          .form-group.row
+            .col-8.offset-2
+              button.btn.btn-primary(
+                type='submit'
+              )
+                | Update user profile
+
+      else
+        .offset-1.col-10
+          h3 User profile cannot be displayed
+
+
+block bottomscripts
+  script.
+    window.onload = function(){
+      // reset form values to default (necessary for Firefox otherwise previous entries persist)
+      document.getElementById('userProfile').reset();
+
+      // validate form upon submission
+      document.getElementById('userProfile').addEventListener('submit', validateForm)
+    }
+
+    function validateForm(e){
+      var password = document.getElementById('password').value.trim();
+      var passwordConfirmation = document.getElementById('passwordConfirmation').value.trim();
+      var name = document.getElementById('userName').value.trim();
+
+      // if password is provided, ensure it matches password confirmation 
+      if(password && password !== passwordConfirmation){
+        e.preventDefault();
+        document.getElementById('password-warning').classList.remove('hidden');
+      }
+
+      // prevent submission if user name is blank
+      if(!name){
+        e.preventDefault();
+        document.getElementById('user-name-warning').classList.remove('hidden');
+      }
+
+    }

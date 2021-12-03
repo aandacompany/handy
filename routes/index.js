@@ -1,10 +1,11 @@
+'use strict';
 
-/*
- * GET home page.
- */
+const path = require('path')
+  ;
 
+
+// insert routes here
 module.exports = function(app){
-  require('./main')(app);  // generic routes e.g. home, about, etc; GET only
-  require('./forms')(app); // form action routes; POST only
-};
-
+  require(path.join(__dirname, 'get'))(app);
+  require(path.join(__dirname, 'post'))(app);
+}

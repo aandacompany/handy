@@ -1,0 +1,30 @@
+- const alertSet = alerts || {}
+each alert, type in alertSet
+  if type
+    - let alertClass
+    case type
+      when 'success'
+        - alertClass = 'alert-success'
+      when 'info'
+        - alertClass = 'alert-info'
+      when 'warning'
+        - alertClass = 'alert-warning'
+      when 'danger'
+        - alertClass = 'alert-danger'
+
+    .row.justify-content-center
+      .col-10
+        .alert.alert-dismissable.fade.show(
+          class=alertClass
+          role='alert'
+        )
+          button.close(
+            type='button'
+            data-dismiss='alert'
+            aria-label='Close'
+          )
+            span(
+              aria-hidden='true'
+            )
+              | &times;
+          | !{alert.text}

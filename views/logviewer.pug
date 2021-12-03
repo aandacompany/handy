@@ -1,0 +1,70 @@
+extends templates/handy_template.pug
+
+mixin addFilter(name)
+  .col-1
+    label(
+      for= name
+    ) #{name.substr(0, 1).toUpperCase() + name.substr(1).toLowerCase()}
+    select.form-control.select_filter(
+      id= name
+      name= name
+      data-label= name
+    )
+      option(
+        value='all'
+      )
+        | All
+
+block content
+  .container-fluid.spacer
+    #search
+      .row
+        .col-1
+        each definition in pageInfo.logViewDefinitions
+          +addFilter(definition.id)
+
+        .col-6
+          label(
+            for='time'
+          )
+            | Lookback Period
+
+          form.form-inline#date_filter
+            .input-group.mr-2
+              input.form-control#time(
+                type='number'
+                min=1
+                step=1
+                name='time'
+                data-label='time'
+              )
+              .input-group-append
+                .input-group-text
+                  | days
+
+            button.btn.btn-primary#refresh(
+              type='submit'
+            )
+              | Refresh
+
+
+
+    #results
+      .row
+        hr
+      .row
+        #progress_bar.progress.offset-1.col-10
+          .progress-bar.progress-bar-striped.progress-bar-animated(
+            role='progressbar'
+            style= 'width: 100%'
+          )
+
+      .row
+        #log_records.offset-1.col-10
+          | loading logs ...
+
+
+  script.
+    window.onload = ()=>{
+      logviewer.initialize()
+    }

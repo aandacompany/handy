@@ -1,0 +1,22 @@
+-
+  const handy_version = pageInfo.handy_module_versions.handy_version
+
+meta(
+  name='viewport'
+  content="width=device-width, initial-scale=1"
+)
+
+title #{title}
+
+
+link(
+  rel='stylesheet'
+  type='text/css'
+  href='/css/handy.min.css?ver=' + handy_version
+)
+
+
+script(
+  type='text/javascript'
+  src='/js/handy.min.js?ver=' + handy_version
+)

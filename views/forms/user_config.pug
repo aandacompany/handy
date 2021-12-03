@@ -1,0 +1,30 @@
+form(
+  id='create_user'
+  name='create_user'
+  action='/handy/createuser'
+  method='post'
+  role='form'
+)
+  include ../components/csrf.pug
+
+  .row
+    .col-12
+      h4 Create new user account
+      
+      .well
+        .form-group.row
+          label.col-form-label.col-2(for='userEmail') User email address
+          .col-8
+            input.form-control#userEmail(
+              type='email'
+              name='userEmail'
+              placeholder='e.g. newuser@gmail.com'
+              required
+            )
+        
+        .form-group.row
+          .col-8.offset-2
+            button.btn.btn-primary(
+              type='submit'
+            )
+              | Create user account

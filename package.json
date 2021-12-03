@@ -1,45 +1,54 @@
 {
-  "name": "handy",
-  "version": "3.0.6",
-  "description": "Handy is a web application template for Node.js.  It's design goals are simplicity, speed and extensibility.",
-  "main": ".lib/handy.js",
+  "name": "@takinola/handy",
+  "version": "6.2.14",
+  "description": "Handyjs is a web application framework for Nodejs.",
+  "main": "./lib/handy.js",
   "scripts": {
     "test": "make test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/takinola/handyjs"
+  },
+  "bugs": {
+    "url": "https://github.com/takinola/handyjs/issues"
+  },
+  "homepage": "http://handyjs.org",
+  "license": "AGPL-3.0",
   "dependencies": {
-    "express": "4.13.3",
-    "compression": "1.6.0",
-    "serve-favicon": "2.3.0",
-    "body-parser": "1.14.2",
-    "method-override": "2.3.5",
-    "morgan": "1.6.1",
-    "cookie-parser": "1.4.0 ",
-    "express-session": "1.12.1",
-    "csurf": "1.8.3",
-    "async": "1.5.0",
-    "underscore": "1.8.3",
-    "mysql": "2.10.0",
-    "emailjs": "1.0.1",
-    "acl": "0.4.9",
-    "redis": "2.4.2",
-    "jade": "1.11.0",
-    "connect-redis": "3.0.1",
-    "sol-redis-pool": "0.2.2",
-    "cache-manager": "1.2.2",
-    "bunyan": "1.5.1",
-    "mandrill-api": "1.0.40"
+    "body-parser": "1.19.0",
+    "compression": "1.7.4",
+    "connect-redis": "3.3.3",
+    "cookie-parser": "1.4.4",
+    "csurf": "1.11.0",
+    "emailjs": "2.2.0",
+    "express": "4.17.1",
+    "express-session": "1.17.0",
+    "method-override": "3.0.0",
+    "morgan": "1.9.1",
+    "mysql": "2.17.1",
+    "pug": "3.0.0",
+    "underscore": "1.9.1",
+    "bunyan": "1.8.12",
+    "google-auth-library": "2.0.0",
+    "googleapis": "33.0.0",
+    "js-base64": "2.4.3"
   },
   "devDependencies": {
-    "expect.js": "0.2.0",
-    "zombie": "2.0.0-alpha24"
-  },
-  "repository": "",
-  "keywords": [
-    "CMS",
-    "content",
-    "management",
-    "system"
-  ],
-  "author": "Tolu Akinola",
-  "license": "AGPL"
+    "@babel/core": "7.12.9",
+    "@babel/preset-env": "7.12.7",
+    "@babel/plugin-transform-runtime": "7.12.1",
+    "babelify": "github:ylemkimon/babelify",
+    "browserify": "16.2.2",
+    "expect.js": "0.3.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "3.10.0",
+    "gulp-concat": "2.6.1",
+    "gulp-less": "4.0.1",
+    "gulp-streamify": "1.0.2",
+    "gulp-uglify": "3.0.1",
+    "less": "3.8.1",
+    "vinyl-buffer": "1.0.1",
+    "vinyl-source-stream": "2.0.0"
+  }
 }

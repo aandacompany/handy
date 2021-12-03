@@ -1,0 +1,84 @@
+extends ./templates/handy_template.pug
+
+block content
+  -
+    let additionalConfigViews = pageInfo.configurationViews
+
+  .container-fluid.spacer.fill-screen-height
+    .row
+      .offset-1.col-10
+        h1 Site configuration settings
+    .row
+      .offset-1.col-9
+        .card
+          .card-header#tab-headers
+            ul.nav.nav-tabs.card-header-tabs
+              li.nav-item
+                a.nav-link.active(
+                  href='#general'
+                  data-toggle='tab'
+                  role='tab'
+                  aria-controls='General'
+                  aria-selected='true'
+                )
+                  | General
+
+              li.nav-item
+                a.nav-link(
+                  href='#user'
+                  data-toggle='tab'
+                  role='tab'
+                  aria-controls='User'
+                  aria-selected='false'
+                )
+                  | User
+
+              li.nav-item
+                a.nav-link(
+                  href='#theme'
+                  data-toggle='tab'
+                  role='tab'
+                  aria-controls='Theme'
+                  aria-selected='false'
+                )
+                  | Theme
+
+          .card-body
+            .tab-content
+              .tab-pane.fade.show.active#general(
+                role='tabpanel'
+                aria-labeledby='general-tab'
+              )
+                include forms/handy_config.pug
+
+              .tab-pane.fade#user(
+                role='tabpanel'
+                aria-labeledby='user-tab'
+              )
+                include forms/user_config.pug
+
+              .tab-pane.fade#theme(
+                role='tabpanel'
+                aria-labeledby='theme-tab'
+              )
+                include forms/theme_config.pug
+
+      .col-2.sticky-top
+        .card
+          .card-body
+            h6.card-title Additional configuration views
+            
+            ul
+              each link, name in additionalConfigViews
+                li
+                  a(
+                    href= link
+                  )
+                    | #{name}
+
+block bottomscripts
+  script(
+    type='text/javascript'
+    src='/js/handy_config.min.js?ver=' + handy_version
+  )
+    

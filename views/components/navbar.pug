@@ -1,0 +1,24 @@
+nav.navbar.fixed-top.navbar-dark.bg-dark.navbar-expand-lg
+  a.navbar-brand(href='/')
+    | #{siteName}
+  button.navbar-toggler(
+    type='button'
+    data-toggle='collapse'
+    data-target='navbarToggler'
+    aria-controls='navbarToggler'
+    aria-expanded='false'
+    aria-label='Toggle navigation'
+  )
+    span.navbar-toggler-icon
+
+  .collapse.navbar-collapse#navbarToggler
+    ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+      li.active.nav-item
+        a.nav-link(
+          href='/'
+        )
+          | Home
+
+          span.sr-only
+            | (current)
+
